@@ -11,26 +11,26 @@ Current project includes both backend and frontend part of this app.
 
 1. Got to main profile page, for example let it be follow page:
 
-![alt text](https://github.com/skyshy0707/last-seen-approx/blob/main/about_app/1.JPG?raw=true)
+![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/about_app/1.JPG?raw=true)
 
 2. You can seen circle button with extension label:
 
-![alt text](https://github.com/skyshy0707/last-seen-approx/blob/main/frontend/assets/images/logo-round.png?raw=true)
+![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/frontend/assets/images/logo-round.png?raw=true)
 
 3. Click at the button and wait until data will be shown near to subscribe button
 
-![alt text](https://github.com/skyshy0707/last-seen-approx/blob/main/about_app/3.JPG?raw=true)
+![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/about_app/3.JPG?raw=true)
 
 4. You can see results with type of activity with the link of related resourse:
 
-![alt text](https://github.com/skyshy0707/last-seen-approx/blob/main/about_app/4.JPG?raw=true)
+![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/about_app/4.JPG?raw=true)
 
 !NB If the resource is a playlist then you'll see the link of 404 page that resource isn't exist, because Youtube 
 don't have separate page for playlists.
 
 5. Next, If you wanna get `last seen` timestamp just another time, wait 24 hours.
 
-![alt text](https://github.com/skyshy0707/last-seen-approx/blob/main/about_app/5.JPG?raw=true)
+![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/about_app/5.JPG?raw=true)
 
 
 
