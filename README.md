@@ -15,7 +15,7 @@ Current project includes both backend and frontend part of this app.
 
 2. You can seen circle button with extension label:
 
-![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/frontend/assets/images/logo-round.png?raw=true)
+![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/src/frontend/assets/images/logo-round.png?raw=true)
 
 3. Click at the button and wait until data will be shown near to subscribe button
 
