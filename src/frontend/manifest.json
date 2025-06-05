@@ -1,0 +1,83 @@
+{
+    "name": "last-seen-approx",
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "description": "An app which allow to know about when yt user was last seen. Based on Youtube open data.",
+    "oauth2": {
+        "client_id": "913410579868-v41atsnekd3rrr5a6q1aepr31nt5nk93.apps.googleusercontent.com",
+        "scopes": [
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/plus.me"
+        ]
+    },
+    "icons": {
+        "16": "assets/images/logo_extremely_small32.png",
+        "32": "assets/images/logo_extremely_small.png",
+        "48": "assets/images/browser_icon.png",
+        "96": "assets/images/logo_big.png"
+    },
+    "background": {
+        "service_worker": "scripts/main/background.js",
+        "type": "module" 
+    },
+    "content_scripts": [
+            {
+                "css": [
+                    "assets/css/main.css"
+                ],
+                "id": "content",
+                "js": [
+                    "scripts/content.js"
+                ],
+                "matches": [
+                    "https://*.youtube.com/@*",
+                    "https://*.youtube.com/@*/*",
+                    "https://*.youtube.com/channel/*",
+                    "https://*.youtube.com/channel/*/*"
+                ], 
+                "excludeMatches": [
+                    "https://*.youtube.com/@*/*?*",
+                    "https://*.youtube.com/channel/*/*?*"
+                ],
+                "runAt": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "resources": [
+                "assets/*",
+                "scripts/main/*",
+                "scripts/modules/*",
+                "templates/*"
+            ]
+        }
+    ],
+    "action": {
+        "default_icon": {
+            "16": "assets/images/logo_extremely_small32.png",
+            "32": "assets/images/logo_very_small.png",
+            "48": "assets/images/browser_icon.png",
+            "96": "assets/images/logo_big.png"
+        },
+        "default_title": "Last seen approx"
+    },
+    "permissions": [
+        "activeTab",
+        "cookies",
+        "identity",
+        "identity.email",
+        "management",
+        "nativeMessaging",
+        "scripting",
+        "tabs",
+        "webNavigation"
+    ],
+    "host_permissions": [
+        "https://www.youtube.com/@*",
+        "https://www.youtube.com/channel/*"
+    ]
+}

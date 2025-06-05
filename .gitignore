@@ -1,0 +1,9 @@
+src/.env
+src/methods.py
+src/frontend/assets/images/drafts
+src/test_request.py
+*.log
+*.pyc
+*-TEST.html
+client_secret*.json
+last-seen-approx*.json
