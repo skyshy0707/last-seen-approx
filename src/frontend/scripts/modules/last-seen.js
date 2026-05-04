@@ -1,21 +1,27 @@
 import { config } from '../main/config.js'
 import { addErrorText } from './error-handler.js'
-import { lastSeenHTML, waitHTML } from './html-bulders.js'
+import { lastSeenHTML, waitHTML } from './html-builders.js'
+import * as rs from './render-state.js'
 
 async function getLastSeen(event){
     var username = document.querySelector('yt-content-metadata-view-model > div > span > span').textContent
 
     console.log(`USERNAME: ${username}`)
-    const lastSeenBtn = document.querySelector(".last-seen-align")
+
+    const painter = new rs.BuildStateCard(new rs.waitView())
+    await painter.main(null)
+
+    /*const lastSeenBtn = document.querySelector(".last-seen-align")
     const commonDiv = lastSeenBtn.parentNode
-    const waitContainer = document.createElement("div", { id: "wait" })
+    const waitContainer = document.createElement("div")
 
     lastSeenBtn.remove()
     waitContainer.innerHTML = await waitHTML()
-    commonDiv.appendChild(waitContainer)
+    //waitContainer.innerHTML = "<p>A</p>"
+    commonDiv.appendChild(waitContainer)*/
 
     fetch(
-        `${config.BACKEND_API_URL}last-seen/?` + new URLSearchParams({
+        `${config.BACKEND_API_URL}last-seen/?` + new URLSearchParams({ 
             username: username
         }).toString(), 
         {
@@ -27,18 +33,17 @@ async function getLastSeen(event){
     ).then(async (response) => {
 
         const data = await response.json()
-        const content = data.text_display || ''
+
+        painter.setState(new rs.lastSeenView())
+        await painter.main(data)
+
+
+
+        /*const content = data.text_display || ''
         const publishedAt = data.published_at
         const type = data.type || 'comment'
-        const videoId = data.video_id
-        const urlPathId = videoId || data.channel_id
+        const urlPathId = data.video_id || data.channel_id
         const urlResourse = type == 'subscription' ? `https://www.youtube.com/channel/${urlPathId}` : `https://www.youtube.com/watch?v=${urlPathId}`
-        
-        const lastSeenDataContainer = document.createElement("div")
-        lastSeenDataContainer.className = "last-seen-data-container"
-        lastSeenDataContainer.innerHTML = await lastSeenHTML()
-        const lastSeenData = lastSeenDataContainer.querySelector(".last-seen-text-container")
-        lastSeenData.style.color = "black"
 
         const dataItems = [
             { text: 'Data Type: ', value: type },
@@ -47,8 +52,12 @@ async function getLastSeen(event){
             { text: 'Content: ', value: content }
         ]
 
-        for (let dataItem of dataItems){
+        const lastSeenDataContainer = document.createElement("div")
+        lastSeenDataContainer.className = "last-seen-data-container"
+        lastSeenDataContainer.innerHTML = await lastSeenHTML()
+        const lastSeenData = lastSeenDataContainer.querySelector(".last-seen-text-container")
 
+        for (let dataItem of dataItems){
             var dataItemDiv = document.createElement("div")
             var divText = document.createElement("strong")
             var textValue = document.createTextNode(dataItem.value)
@@ -60,12 +69,15 @@ async function getLastSeen(event){
             lastSeenData.appendChild(dataItemDiv)
         }
         commonDiv.appendChild(lastSeenDataContainer)
+        chrome.runtime.sendMessage({ lastSeenReportTaken: true })*/
         chrome.runtime.sendMessage({ lastSeenReportTaken: true })
 
+        /*.finally(
+        () => waitContainer.remove()*/
 
     }).finally(
-        () => {waitContainer.remove()}
-    ).catch((error) => addErrorText(error))
+        () => painter.setState(new rs.errorView())
+    ).catch(async (error) => await painter.main(error))
     
 }
 

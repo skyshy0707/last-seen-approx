@@ -17,35 +17,18 @@
         "48": "assets/images/browser_icon.png",
         "96": "assets/images/logo_big.png"
     },
+    "config": {
+        "BACKEND_API_URL": "http://127.0.0.1:9000/api/",
+        "GOOGLE_EXTENSION_ID": "njjcagchgcnmolbjdichhlihlninegfb"
+    },
     "background": {
         "service_worker": "scripts/main/background.js",
         "type": "module" 
     },
-    "content_scripts": [
-            {
-                "css": [
-                    "assets/css/main.css"
-                ],
-                "id": "content",
-                "js": [
-                    "scripts/content.js"
-                ],
-                "matches": [
-                    "https://*.youtube.com/@*",
-                    "https://*.youtube.com/@*/*",
-                    "https://*.youtube.com/channel/*",
-                    "https://*.youtube.com/channel/*/*"
-                ], 
-                "excludeMatches": [
-                    "https://*.youtube.com/@*/*?*",
-                    "https://*.youtube.com/channel/*/*?*"
-                ],
-                "runAt": "document_end"
-        }
-    ],
     "web_accessible_resources": [
         {
             "matches": [
+                "https://m.youtube.com/*",
                 "https://www.youtube.com/*"
             ],
             "resources": [
@@ -77,6 +60,8 @@
         "webNavigation"
     ],
     "host_permissions": [
+        "https://m.youtube.com/@*",
+        "https://m.youtube.com/channel/*",
         "https://www.youtube.com/@*",
         "https://www.youtube.com/channel/*"
     ]

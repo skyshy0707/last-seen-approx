@@ -41,6 +41,7 @@ async function _findBlock(
                     )
                 }
                 await draftMenuButton(subscribe)
+                //return subscribe
             }
         }
     }
@@ -67,8 +68,6 @@ async function findBlock(cb, node, targetSelectorName="yt-subscribe-button-view-
                         }
                         resolve(subscribe)
                     }
-
-                    
                 }
                 catch (error) {
                     console.log(`Error occur while finding subscribe block ${error.stack}, error attrs: ${Object.keys(error)}`)
@@ -89,20 +88,23 @@ async function loadMenu(cb, errorOccur=false){
     
     var subscribe = await findBlock(
         cb, document, 
-        "yt-flexible-actions-view-model"
+        "yt-flexible-actions-view-model",
+        true
     )
     await draftMenuButton(subscribe)
 }
 
 
 async function draftMenuButton(subscribe){
-
+    /*Настраивает параметры DOM и рисует меню*/
 
     const ls = await importModule('scripts/modules/last-seen.js')
     const hasMenu = subscribe.getElementsByClassName("last-seen-align")
+    const oldData = subscribe.getElementsByClassName("last-seen-data-container")
     const menu = document.createElement("div")
     const lastSeenBtn =  document.createElement("button")
 
+    // TO DO: Брать `last_check` в ответе сервера, cookies исключить (ненадёжно)
     const lastUsing = new Date(getCookie("last_check"))
     lastUsing.setHours(lastUsing.getHours() + 24)
     const msPerDay = 86400000
@@ -111,8 +113,17 @@ async function draftMenuButton(subscribe){
     const whenAvailableAgain = lastUsing
     const currentUTCTime = new Date(now.getTime() + now.getTimezoneOffset() * msPerMinute)
 
+
+    if (oldData.length){
+        for (let data of oldData){
+            data.remove()
+        }
+    }
     if (!hasMenu.length){
+
+        console.log(`hasMenu status: ${hasMenu.length}, subscribe.lenght: ${subscribe.length}, subscribe: ${subscribe} ${new Date()}`)
         menu.appendChild(lastSeenBtn)
+        console.log(`innethtml: ${subscribe.innerHTML}`)
         subscribe.appendChild(menu)
     }
 
@@ -134,25 +145,9 @@ async function draftMenuButton(subscribe){
 
 async function addMenu () {
 
-    const urlPatterns = [
-        'https://www.youtube.com/@',
-        'https://www.youtube.com/channel'
-    ]
-
-    var draftMenu = false
-    for (let urlPattern of urlPatterns){
-        if (location.href.startsWith(urlPattern)){
-            draftMenu = true
-            break
-        }
-    }
-
-    if (draftMenu){
-        await loadMenu(nodeBlock => {
-            console.log(`This returns block ${nodeBlock} main menu at ${new Date()}`) 
-        })
-    } 
-    else console.log("No conditions for drafting menu")
+    await loadMenu(nodeBlock => {
+        console.log(`This returns block ${nodeBlock} main menu at ${new Date()}`) 
+    })
 }
 
 addMenu().then(console.log("Menu is drafted")).catch(

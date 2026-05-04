@@ -1,4 +1,4 @@
-import { errorHTML } from "./html-bulders.js"
+import { errorHTML } from "./html-builders.js"
 
 let textErrors = {
     default: "Ой, ошибка. Роботы добрались до нас и устроили рок-концерт. Ждите, мы всё исправим."
