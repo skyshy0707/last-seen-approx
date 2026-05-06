@@ -12,17 +12,17 @@
         ]
     },
     "icons": {
-        "16": "assets/images/logo_extremely_small32.png",
-        "32": "assets/images/logo_extremely_small.png",
-        "48": "assets/images/browser_icon.png",
-        "96": "assets/images/logo_big.png"
+        "16": "src/shared/assets/images/logo_extremely_small32.png",
+        "32": "src/shared/assets/images/logo_extremely_small.png",
+        "48": "src/shared/assets/images/browser_icon.png",
+        "96": "src/shared/assets/images/logo_big.png"
     },
     "config": {
         "BACKEND_API_URL": "http://127.0.0.1:9000/api/",
         "GOOGLE_EXTENSION_ID": "njjcagchgcnmolbjdichhlihlninegfb"
     },
     "background": {
-        "service_worker": "scripts/main/background.js",
+        "service_worker": "src/app/background.js",
         "type": "module" 
     },
     "web_accessible_resources": [
@@ -32,19 +32,19 @@
                 "https://www.youtube.com/*"
             ],
             "resources": [
-                "assets/*",
-                "scripts/main/*",
-                "scripts/modules/*",
-                "templates/*"
+                "src/entities/*",
+                "src/features/last-seen/lib/*",
+                "src/features/last-seen/ui/*",
+                "src/shared/*"
             ]
         }
     ],
     "action": {
         "default_icon": {
-            "16": "assets/images/logo_extremely_small32.png",
-            "32": "assets/images/logo_very_small.png",
-            "48": "assets/images/browser_icon.png",
-            "96": "assets/images/logo_big.png"
+            "16": "src/shared/assets/images/logo_extremely_small32.png",
+            "32": "src/shared/assets/images/logo_very_small.png",
+            "48": "src/shared/assets/images/browser_icon.png",
+            "96": "src/shared/assets/images/logo_big.png"
         },
         "default_title": "Last seen approx"
     },

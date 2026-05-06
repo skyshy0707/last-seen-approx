@@ -146,14 +146,12 @@ class BuildStateCard extends viewData{
     }
 }
 
-
-/*const wait = new BuildStateCard(new waitView())
-const error = new BuildStateCard(new errorView())*/
-
+let errorHandler = new BuildStateCard(new errorView)
 
 export {
     errorView,
     lastSeenView,
     waitView,
-    BuildStateCard
+    BuildStateCard,
+    errorHandler
 }

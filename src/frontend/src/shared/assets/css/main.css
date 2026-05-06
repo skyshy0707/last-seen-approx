@@ -15,7 +15,7 @@
     height: 55px;
     border: 1px solid white;
     border-radius: 50%;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/logo-round.png');
+    background-image: url('chrome-extension://__MSG_@@extension_id__/src/shared/assets/images/logo-round.png');
     background-size: cover;
     position: relative;
     cursor: pointer;

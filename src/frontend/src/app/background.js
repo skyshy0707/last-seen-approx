@@ -1,5 +1,4 @@
-import { addErrorText } from "../modules/error-handler.js";
-import styles from "../../assets/css/main.css.js?url"
+import { errorHandler } from "../entities/last-seen/ui/render-state.js"
 
 //console.log(`This is background script ${config.BACKEND_API_URL}`)
 
@@ -33,7 +32,7 @@ async function addMenuChrome(tab){
     }
 
     const injectObject = { 
-        files: [ "scripts/content.js" ],
+        files: [ "src/features/last-seen/index.js" ],
         target : target
     }
     if (draftMenu){
@@ -103,7 +102,7 @@ chrome.runtime.onInstalled.addListener(
                 console.log("ERROR SHOW")
                 chrome.scripting.executeScript({
                     args: error,
-                    func: addErrorText,
+                    func: errorHandler.main,
                     target: {
                         tabId: tabId
                     }
@@ -133,7 +132,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, currentTab, tab) => {
     chrome.scripting.insertCSS({
         target: { tabId: tabId, allFrames: true },
         files: [
-            "assets/css/main.css"
+            "src/shared/assets/css/main.css"
         ]
     }).then(() => { console.log(`CSS Injected: ${tabId}`) })
 
@@ -166,7 +165,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         if (response.status != 200){
             return 
         }
-        let updated = await response.json()
+        /*let updated = await response.json()
         console.log(`updated: ${updated}`)
         await chrome.cookies.set(
             {
@@ -174,7 +173,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
                 value: updated.last_cheek,
                 url: 'https://www.youtube.com'
             }
-        )
+        )*/
         chrome.runtime.reload()
     }
 
