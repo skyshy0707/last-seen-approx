@@ -1,19 +1,22 @@
 Google-extension `last-seen-approx` `v. 0.0`
 
+Backend: Fast API, SQLAlchemy, PostgreSQL, Layered; Integrations: Youtube API, Google OAuth
+
+Frontend: Javascript, FSD; Integrations: Google Extension API
+
 An app which allow to know about when yt user was last seen. Based on Youtube open data.
 Current project includes both backend and frontend part of this app.
 
 
-
 **MANUAL**
-
+ 
 **How to use after activation and authorization via Google account:**
 
 1. Got to main profile page, for example let it be follow page:
 
 ![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/about_app/1.JPG?raw=true)
 
-2. You can seen circle button with extension label:
+2. You can see the circle button with extension label:
 
 ![alt text](https://github.com/skyshy0707/last-seen-approx/blob/master/src/frontend/src/shared/assets/images/logo-round.png?raw=true)
 
@@ -37,7 +40,4 @@ don't have separate page for playlists.
 **TO DO:**
 
 1. CRITICAL - Backend: Realize requests getting videos with related yt user comments asynchronically
-2. CRITICAL - Frontend: Fix `not attaching content scripts` by realizing adding `stop point` 
-in the body of mutation cycle that checks when actual url is not related to `valid pattern` (when 
-content script should not be added to the tab)
-3. INCONSIDERABLE: Realize checking `last_use` timestamp throungh getting response from server endpoint.
+2. INCONSIDERABLE: Realize checking `last_use` timestamp throungh getting response from server endpoint.
