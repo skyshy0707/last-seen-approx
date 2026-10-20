@@ -24,7 +24,7 @@ All of the tasks mentioned above are currently undergoing active debugging.
 
 2. Skipping of Reply Comments in Subsequent Batches: Fixed the logic for processing comment replies.
 How it worked "before": If the very first comment of the first fetched batch had a timestamp mathematically less than or equal to a previously loaded comment, the algorithm would ignore the rest of the batch (under the false assumption that no new comments could possibly follow).
-Why this was wrong: It is fundamentally non-deterministic which batch will contain the latest reply comment. It is impossible to retrieve all user comments sequentially ordered by time across every single resource, as replies are hierarchically nested within the response structure. Once again, this is a strict constraint of the API itself.
+Why this was wrong: It is fundamentally non-deterministic which batch will contain the latest reply comment. It is impossible to fetch all user comments ordered chronologically across each resource at once. Comment replies are structured as nested arrays within the top-level items. This behavior is fundamentally dictated by the strict architecture of the YouTube Data API.
 
 3. Frontend migrated to Feature-Sliced Design (FSD) architecture from a modular approach.
 
@@ -56,7 +56,8 @@ Alle oben genannten Aufgaben befinden sich derzeit in der aktiven Debugging-Phas
 2. Überspringen von Antwort-Kommentaren (replies) in nachfolgenden Paketen: Die Logik für die Verarbeitung von Kommentar-Antworten wurde korrigiert.
 
 Funktionsweise „Vorher“: Wenn der allererste Kommentar des ersten abrufenen Datenpakets einen Zeitstempel aufwies, der mathematisch kleiner oder gleich einem zuvor geladenen Kommentar war, ignorierte der Algorithmus den Rest des Pakets (unter der falschen Annahme, dass keine neuen Kommentare folgen könnten).
-Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befindet, ist fundamental nicht-deterministisch. Es ist unmöglich, alle Benutzerkommentare sequenziell nach Zeit geordnet über jede einzelne Ressource abzurufen, da Antworten hierarchisch in der Antwortstruktur verschachtelt sind. Auch dies ist eine strikte Einschränkung der API selbst.
+Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befindet, ist fundamental nicht-deterministisch. Es ist unmöglich, alle Benutzerkommentare chronologisch geordnet über jede Ressource hinweg auf einmal abzurufen. Antwort-Kommentare (Replies) sind als geschachtelte Arrays innerhalb der Top-Level-Elemente strukturiert. Dieses Verhalten ist rein durch die strikte Architektur der YouTube Data API vorgegeben.
+
 
 3. Frontend von der modularen Architektur auf Feature-Sliced Design (FSD) umgestellt.
 
@@ -96,8 +97,8 @@ Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befind
 
 2. Пропускались комментарии ответов (replies) следующих партий. Как это работало "до": Если при загрузке первой партии первый 
 её комментарий имеет метку времени в математическом смысле ниже или ту же, что ранее загруженный, то поэтому остальная 
-игноривалась алгоритмом (иллюзия, что новых быть якобы не может). Нельзя так делать: В какой партии самый поздний комментарий-ответ - вопрос открытый. Все комментарии пользователя, упорядоченные по времени по каждому ресурсу получить нельзя. Ответы 
-структурируются вложенно. Это опять-таки api. 
+игноривалась алгоритмом (иллюзия, что новых быть якобы не может). Нельзя так делать: В какой партии самый поздний комментарий-ответ - вопрос открытый. Все комментарии пользователя, упорядоченные по времени, по каждому ресурсу получить нельзя. Комментарии-ответы (replies)
+структурируются как вложения. Это опять-таки устройство api. 
 
 3. Фронтенд переведён на FSD архитектуре от модульной.
 
