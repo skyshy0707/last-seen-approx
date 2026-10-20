@@ -15,11 +15,15 @@ As a result, identifying and fixing memory leaks is a key part of the current de
 
 A recent Google Chrome update has introduced false-positive errors appearing both in the browser console and within the extension background logs. 
 
-Previously, importing these resources as native JS modules worked seamlessly, fully adhering to the URL pattern matches defined in `web_accessible_resources`. However, the updated Google Chrome security layer now triggers the following error:
+Previously, importing these resources as native JS modules worked seamlessly, fully adhering to the URL pattern matches defined in `web_accessible_resources`. However, the updated Google Chrome security core layer now triggers the following error:
 
 "Unsafe attempt to load URL chrome-extension://[EXTENSION_ID]/[RESOURCE_PATH]"
 
+However, Javascript is stil not broken and work successfully.
+
 Despite the background script being explicitly declared as `type: "module"` in the manifest, importing resources in an identical absolute manner should not result in this architectural absurdity. The application layout and FSD modules remain fully functional and successfully render the content after the initial false-positive block. A formal bug ticket needs to be submitted to the Google Extension API / Chromium development teams to resolve this regression.
+
+
 
 #### Ongoing Tasks & Active Debugging:
 
@@ -59,6 +63,8 @@ Ein kürzliches Google Chrome-Update hat zu fehlerhaften Fehlermeldungen (False-
 Zuvor funktionierte der Import dieser Ressourcen als native JS-Module einwandfrei und entsprach vollständig den in `web_accessible_resources` definierten URL-Mustern. Das aktualisierte Sicherheits-Layer von Google Chrome erzeugt nun jedoch folgenden Fehler:
 
 "Unsafe attempt to load URL chrome-extension://[EXTENSION_ID]/[RESOURCE_PATH]"
+
+JavaScript ist jedoch nach wie vor intakt und funktioniert einwandfrei.
 
 Obwohl das Hintergrund-Skript im Manifest explizit als `type: "module"` deklariert ist, sollte der identische absolute Import von Ressourcen nicht zu einer solchen architektonischen Absurdität führen. Das Anwendungs-Layout und die FSD-Module bleiben voll funktionsfähig und rendern den Inhalt nach der anfänglichen fehlerhaften Blockierung erfolgreich. Es muss ein offizielles Bug-Ticket bei den Entwicklerteams der Google Extension API oder von Chromium eingereicht werden, um diese Regression zu beheben.
 
@@ -101,9 +107,11 @@ Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befind
 ### 🐛 Известные проблемы платформы / Chrome Manifest V3
 
 Недавнее обновление Google Chrome вызвало ошибки как в консоли браузера, так и в самом расширении. Хотя, разрешения
-страниц, соотвествующих шаблонам url, к которым допускаются ресурсы в манифесте были установленыи и до недавнего обновления работали импорты этих ресурсов как модулей js. То сейчас, браузеру Google Chrome это не нравится:
+страниц, соотвествующих шаблонам url, к которым допускаются ресурсы в манифесте были установленыи и до недавнего обновления работали импорты этих ресурсов как модулей js. То сейчас, браузеру Google Chrome на уровне ядра это не нравится:
 
 "Unsafe attempt to load URL chrome-extension://[EXTENSION_ID]/[RESOURCE_PATH]"
+
+Однако, Javascript-код пока ещё выполняем в модульном стиле.
 
 Несмотря, на то, что фоновый скрипт объявлен в манифесте как модуль, то импортирумые ресурсы таким же образом не должны приводить
 к подобному абсурду. Следует создавать тикет на устранение данного бага разработчиками Google Extension API или самого Chrome.
