@@ -54,7 +54,7 @@ Alle oben genannten Aufgaben befinden sich derzeit in der aktiven Debugging-Phas
 1. Überspringen von Aktivitäten: Ein Fehler wurde behoben, bei dem Aktivitäten übersprungen wurden. Zuvor stoppte der Ladevorgang vorzeitig, da der Manager das letzte Objekt aus einem zuvor geladenen Datenpaket „gesehen“ hatte.
 
 2. Überspringen von Antwort-Kommentaren (replies) in nachfolgenden Paketen: Die Logik für die Verarbeitung von Kommentar-Antworten wurde korrigiert. Funktionsweise „Vorher“: Wenn der allererste Kommentar des ersten abrufenen Datenpakets einen Zeitstempel aufwies, der mathematisch kleiner oder gleich einem zuvor geladenen Kommentar war, ignorierte der Algorithmus den Rest des Pakets (unter der falschen Annahme, dass keine neuen Kommentare folgen könnten).
-Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befindet, ist fundamental nicht-deterministisch. Es ist unmöglich, alle Benutzerkommentare chronologisch geordnet über jede Ressource hinweg auf einmal abzurufen. Antwort-Kommentare (Replies) sind als geschachtelte Arrays innerhalb der Top-Level-Elemente strukturiert. Dieses Verhalten ist rein durch die strikte Architektur der YouTube Data API vorgegeben.
+Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befindet, ist fundamental nicht-deterministisch. Es ist unmöglich, alle Benutzerkommentare chronologisch geordnet über jede Ressource hinweg auf einmal abzurufen. Antwort-Kommentare (replies) sind als geschachtelte Arrays innerhalb der Top-Level-Elemente strukturiert. Dieses Verhalten ist rein durch die strikte Architektur der YouTube Data API vorgegeben.
 
 
 3. Frontend von der modularen Architektur auf Feature-Sliced Design (FSD) umgestellt.
