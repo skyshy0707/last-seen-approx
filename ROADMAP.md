@@ -11,6 +11,16 @@ The project is being migrated onto an asynchronous, multi-processed architecture
 
 As a result, identifying and fixing memory leaks is a key part of the current debugging process. We are evaluating memory constraints and determining how many deserialization processes can be safely distributed across different CPU cores.
 
+### 🐛 Known Platform Issues / Chrome Manifest V3 Bug
+
+A recent Google Chrome update has introduced false-positive errors appearing both in the browser console and within the extension background logs. 
+
+Previously, importing these resources as native JS modules worked seamlessly, fully adhering to the URL pattern matches defined in `web_accessible_resources`. However, the updated Google Chrome security layer now triggers the following error:
+
+"Unsafe attempt to load URL chrome-extension://[EXTENSION_ID]/[RESOURCE_PATH]"
+
+Despite the background script being explicitly declared as `type: "module"` in the manifest, importing resources in an identical absolute manner should not result in this architectural absurdity. The application layout and FSD modules remain fully functional and successfully render the content after the initial false-positive block. A formal bug ticket needs to be submitted to the Google Extension API / Chromium development teams to resolve this regression.
+
 #### Ongoing Tasks & Active Debugging:
 
 Future tasks will focus on fetching activities from other previously skipped resources (such as collaborations, community posts, etc.). We are also continually analyzing the YouTube API for any potential response structure modifications.
@@ -41,6 +51,16 @@ Why this was wrong: It is fundamentally non-deterministic which batch will conta
 Da sich das Projekt noch in der Forschungs- und Entwicklungsphase befindet, wird die Schichtenarchitektur (Layered Architecture) noch nicht an allen Stellen strikt eingehalten. Ich befinde mich derzeit in der Konzeptionsphase für die Orchestrierungsschicht. Momentan ist diese als api.loaders implementiert – ein Muster für Loader von Aktivitätstypen, das seine Aufgaben fehlertolerant löst.
 
 Das Projekt wird auf eine asynchrone, multiprozessorfähige Architektur umgestellt. Jedes Datenpaket (Batch) stellt eine einzelne sequenzielle Operation dar. Dies ist keine architektonische Laune, sondern eine vorgegebene Einschränkung der externen API: „Übergib das Token aus der aktuellen Antwort, um das nächste Datenpaket zu erhalten.“ Diese Einschränkung verhindert eine parallele Abfrage von Aktivitäten von außen, da Daten-Offset-Token inhärent nicht-deterministisch sind.
+
+### 🐛 Bekannte Plattform-Probleme / Chrome Manifest V3 Bug
+
+Ein kürzliches Google Chrome-Update hat zu fehlerhaften Fehlermeldungen (False-Positives) geführt, die sowohl in der Browser-Konsole als auch in den Hintergrund-Logs der Extension auftreten.
+
+Zuvor funktionierte der Import dieser Ressourcen als native JS-Module einwandfrei und entsprach vollständig den in `web_accessible_resources` definierten URL-Mustern. Das aktualisierte Sicherheits-Layer von Google Chrome erzeugt nun jedoch folgenden Fehler:
+
+"Unsafe attempt to load URL chrome-extension://[EXTENSION_ID]/[RESOURCE_PATH]"
+
+Obwohl das Hintergrund-Skript im Manifest explizit als `type: "module"` deklariert ist, sollte der identische absolute Import von Ressourcen nicht zu einer solchen architektonischen Absurdität führen. Das Anwendungs-Layout und die FSD-Module bleiben voll funktionsfähig und rendern den Inhalt nach der anfänglichen fehlerhaften Blockierung erfolgreich. Es muss ein offizielles Bug-Ticket bei den Entwicklerteams der Google Extension API oder von Chromium eingereicht werden, um diese Regression zu beheben.
 
 #### Laufende Aufgaben & Aktivitäten – Fehlersuche (Debugging):
 
@@ -77,6 +97,16 @@ Warum das falsch war: In welchem Paket sich der neueste Antwort-Kommentar befind
 Каждая партия данных - одна последовательная операция. 
 Это не архитектурная прихоть, а данность внешнего api: "предоставь токен из текущего ответа - получи следующую партию данных"
 Что не позволяет обращаться с активностями параллельно из вне: токены смещений данных - это недетерменированная информация.
+
+### 🐛 Известные проблемы платформы / Chrome Manifest V3
+
+Недавнее обновление Google Chrome вызвало ошибки как в консоли браузера, так и в самом расширении. Хотя, разрешения
+страниц, соотвествующих шаблонам url, к которым допускаются ресурсы в манифесте были установленыи и до недавнего обновления работали импорты этих ресурсов как модулей js. То сейчас, браузеру Google Chrome это не нравится:
+
+"Unsafe attempt to load URL chrome-extension://[EXTENSION_ID]/[RESOURCE_PATH]"
+
+Несмотря, на то, что фоновый скрипт объявлен в манифесте как модуль, то импортирумые ресурсы таким же образом не должны приводить
+к подобному абсурду. Следует создавать тикет на устранение данного бага разработчиками Google Extension API или самого Chrome.
 
 ### Отладка и доп. исследования:
 
